@@ -24,9 +24,9 @@ const SITE = {
 const STUDENT = {
   photo: "assets/student-photo.jpeg",  // <- replace with the student photo
   name: "BANAVATH VISHNU VARDHAN NAIK",
-  idNumber: "22101A0301",
-  section: "CSE - A",
-  faculty: "Dr. K. Faculty",
+  idNumber: "24102A030007",
+  section: "CSE - DS - 1",
+  faculty: "Dr. S.Bosu Babu",
   profession: "B.Tech Student",
 };
 

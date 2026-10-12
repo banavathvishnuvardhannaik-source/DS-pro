@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohan Babu University — Data Science Laboratory Management System</title>
+  <link rel="icon" href="assets/app-logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Decorative data-science background -->
+  <div class="bg-decor" aria-hidden="true"></div>
+
+  <!-- Top navigation bar -->
+  <header class="topbar">
+    <a class="topbar-brand" href="#/home">
+      <img src="assets/app-logo.jpeg" alt="MBU Logo" class="topbar-logo" />
+      <span class="topbar-title">
+        <strong></strong>
+        <small>Data Science Laboratory Management System</small>
+      </span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="#/home" class="topbar-link">Home</a>
+    </nav>
+  </header>
+
+  <!-- All pages render inside here -->
+  <main id="view" class="view" aria-live="polite"></main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <b></b> · Data Science Laboratory Management System · Powered by in-browser Python (Pyodide)</p>
+  </footer>
+
+  <!-- Toast notifications -->
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Editable data (student + experiments) -->
+  <script src="js/data.js"></script>
+  <!-- Application logic / router -->
+  <script src="js/app.js"></script>
+</body>
+</html>

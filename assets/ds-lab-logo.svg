@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="dsGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f7df6"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="url(#dsGrad)"/>
+  <circle cx="60" cy="60" r="48" fill="#0b0f19"/>
+  <!-- bar chart bars -->
+  <rect x="34" y="58" width="12" height="30" rx="3" fill="#38bdf8"/>
+  <rect x="54" y="44" width="12" height="44" rx="3" fill="#7dd3fc"/>
+  <rect x="74" y="30" width="12" height="58" rx="3" fill="#22d3ee"/>
+  <!-- trend line -->
+  <polyline points="36,64 60,48 84,32" fill="none" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="84" cy="32" r="5" fill="#facc15"/>
+  <text x="60" y="104" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#7dd3fc" letter-spacing="2">DS LAB</text>
+</svg>

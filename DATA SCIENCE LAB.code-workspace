@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../DataScienceLab/frontend"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "mbu-ds-lab"
+	}
+}

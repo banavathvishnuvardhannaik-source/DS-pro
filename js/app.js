@@ -281,6 +281,20 @@ const PORTFOLIO = [
       { tag: "5g", name: "Scatter plot and correlation", path: "Exp_5_new/expD.ipynb" },
       { tag: "5h", name: "Box plot", path: "Exp_5_new/expE.ipynb" },
     ]},
+  { id: 6, title: "Time Series Analysis in Pandas",
+    desc: "Build time series, date ranges, timezones, periods and resampled aggregates.",
+    items: [{ tag: "6a", name: "Section A", path: "TimeSeries/exp6A.ipynb" },
+            { tag: "6b", name: "Section B", path: "TimeSeries/exp6B.ipynb" },
+            { tag: "6c", name: "Section C", path: "TimeSeries/exp6C.ipynb" },
+            { tag: "6d", name: "Section D", path: "TimeSeries/exp6D.ipynb" },
+            { tag: "6e", name: "Section E", path: "TimeSeries/exp6E.ipynb" },
+            { tag: "6f", name: "Section F", path: "TimeSeries/exp6F.ipynb" },
+            { tag: "6g", name: "Section G", path: "TimeSeries/exp6G.ipynb" }]},
+  { id: 7, title: "GroupBy and Data Aggregation in Pandas",
+    desc: "Group by single or multiple keys and aggregate summary statistics on iris.",
+    items: [{ tag: "7a", name: "Section A", path: "GroupBy/exp7A.ipynb" },
+            { tag: "7b", name: "Section B", path: "GroupBy/exp7B.ipynb" },
+            { tag: "7c", name: "Section C", path: "GroupBy/exp7C.ipynb" }]},
 ];
 
 function renderHome() {

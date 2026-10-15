@@ -36,6 +36,8 @@ const MODULES = [
   { name: "Module 3", topics: "Hierarchical Indexing & Reshaping" },
   { name: "Module 4", topics: "Data Visualization with Matplotlib & Seaborn" },
   { name: "Module 5", topics: "Introduction to Machine Learning" },
+  { name: "Module 6", topics: "Advanced Python Project (Exp 6 - add your topic)" },
+  { name: "Module 7", topics: "Advanced Python Project (Exp 7 - add your topic)" },
 ];
 
 const EXPERIMENTS = [
@@ -173,7 +175,7 @@ const EXPERIMENTS = [
     "youtubeVideo": "https://www.youtube.com/embed/UO98lJQ3QGI",
     "youtubeLink": "https://www.youtube.com/watch?v=UO98lJQ3QGI",
     "githubLink": "https://github.com/dashboard",
-    "summary": "A picture is worth a thousand rows. This experiment builds the five essential charts of exploratory data analysis — line plot, bar plot, histogram with a density curve, scatter plot and box plot — using Matplotlib, Pandas plotting and Seaborn, each styled and labelled.",
+    "summary": "A picture is worth a thousand rows. This experiment builds the five essential charts of exploratory data analysis â€” line plot, bar plot, histogram with a density curve, scatter plot and box plot â€” using Matplotlib, Pandas plotting and Seaborn, each styled and labelled.",
     "sections": [
       {
         "letter": "A",
@@ -228,6 +230,90 @@ const EXPERIMENTS = [
         "title": "Array Operations",
         "video": "assets/videos/exp5-B.mp4",
         "code": "import numpy as np\n\narr = np.array([2, 4, 6, 8, 10])\nprint(\"Original array:\", arr)\nprint(\"Add 5:\", arr + 5)\nprint(\"Multiply by 2:\", arr * 2)\nprint(\"Mean:\", arr.mean())\nprint(\"Standard deviation:\", arr.std())\nprint(\"Max:\", arr.max(), \"Min:\", arr.min())"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "number": 6,
+    "name": "Time Series Analysis in Pandas",
+    "previewVideo": "assets/videos/exp6-preview.mp4",
+    "youtubeVideo": "https://www.youtube.com/embed/vmEHCJofslg",
+    "youtubeLink": "https://www.youtube.com/watch?v=vmEHCJofslg",
+    "githubLink": "https://github.com/your-username/ds-lab-experiment-6",
+    "summary": "This experiment explores date and time handling in Pandas: building time series, generating date ranges, mapping time zones, working with periods and converting frequencies, transforming Series and DataFrames to period-based time indices, and resampling time series by aggregating over different intervals.",
+    "sections": [
+      {
+        "letter": "A",
+        "title": "Creating a Time Series",
+        "video": "assets/videos/exp6-A.mp4",
+        "code": "import pandas as pd\ndates=pd.to_datetime([\n    '2026-10-01',\n    '2026-10-02',\n    '2026-10-03',\n    '2026-10-04'\n])\ntemperature=[27,31,32,28]\ntime_series=pd.Series(data=temperature,index=dates)\nprint(\"Time series\")\nprint(time_series)"
+      },
+      {
+        "letter": "B",
+        "title": "Generating Date Ranges",
+        "video": "assets/videos/exp6-B.mp4",
+        "code": "import pandas as pd\ndate_index = pd.date_range(\n    start='2026-10-31',\n    periods=7,\n    freq='ME'\n)\nprint(\"Generated DatetimeIndex:\")\nprint(date_index)"
+      },
+      {
+        "letter": "C",
+        "title": "Timezone Localization & Conversion",
+        "video": "assets/videos/exp6-C.mp4",
+        "code": "import pandas as pd\nindia_dates = pd.date_range(\n    start='2026-02-01 10:00',\n    periods=3,\n    freq='h',\n    tz='Asia/Kolkata'\n)\nprint(\"1. Date Range with Asia/Kolkata Time Zone:\")\nprint(india_dates)\ndates = pd.date_range(\n    start='2026-02-01 10:00',\n    periods=3,\n    freq='h'\n)\nprint(\"\\n2. Timezone-naive Date Range:\")\nprint(dates)\nlocalized_dates = dates.tz_localize('Asia/Kolkata')\nprint(\"\\n3. After Localizing to Asia/Kolkata:\")\nprint(localized_dates)\nnew_york_dates = localized_dates.tz_convert(\n    'America/New_York'\n)\nprint(\"\\n4. Converted to America/New_York:\")\nprint(new_york_dates)\nindia_series = pd.Series(\n    [25, 30, 35],\n    index=localized_dates\n)\nnew_york_series = pd.Series(\n    [40, 45, 50],\n    index=new_york_dates\n)\nprint(\"\\n5. India Time Series:\")\nprint(india_series)\nprint(\"\\nNew York Time Series:\")\nprint(new_york_series)\ncombined_series = pd.concat([\n    india_series,\n    new_york_series\n])\nprint(\"\\n6. Combined Time Series:\")\nprint(combined_series)"
+      },
+      {
+        "letter": "D",
+        "title": "Working with Period Objects",
+        "video": "assets/videos/exp6-D.mp4",
+        "code": "import pandas as pd\np = pd.Period('2026-10', freq='M')\nprint(\"Original Period:\")\nprint(p)\nprint(\"\\nAfter adding 4:\")\nprint(p + 4)\nprint(\"\\nAfter adding 9:\")\nprint(p + 9)\nprint(\"\\nAfter subtracting 5:\")\nprint(p - 5)\nperiods = pd.period_range(\n    start='2026-10',\n    periods=5,\n    freq='M'\n)\nprint(\"\\nRange of Periods:\")\nprint(periods)"
+      },
+      {
+        "letter": "E",
+        "title": "Period Frequency Conversion (asfreq)",
+        "video": "assets/videos/exp6-E.mp4",
+        "code": "import pandas as pd\np = pd.Period('2026-10', freq='M')\nprint(\"Original Period:\")\nprint(p)\ndaily_start = p.asfreq('D', how='start')\nprint(\"\\nMonthly Period converted to Daily (Start):\")\nprint(daily_start)\ndaily_end = p.asfreq('D', how='end')\nprint(\"\\nMonthly Period converted to Daily (End):\")\nprint(daily_end)\nperiod_index = pd.period_range(\n    start='2026-10',\n    periods=3,\n    freq='M'\n)\nprint(\"\\nOriginal PeriodIndex:\")\nprint(period_index)\ndaily_period_index = period_index.asfreq(\n    'D',\n    how='start'\n)\nprint(\"\\nPeriodIndex converted to Daily Frequency:\")\nprint(daily_period_index)\ndaily_period_index_end = period_index.asfreq(\n    'D',\n    how='end'\n)\nprint(\"\\nPeriodIndex converted to Daily Frequency (End):\")\nprint(daily_period_index_end)"
+      },
+      {
+        "letter": "F",
+        "title": "Converting Series / DataFrame to Periods",
+        "video": "assets/videos/exp6-F.mp4",
+        "code": "import pandas as pd\ndates = pd.to_datetime([\n    '2026-10-10',\n    '2026-11-15',\n    '2026-12-20',\n    '2027-01-25'\n])\nsales = pd.Series(\n    [1200, 1600, 1900, 2300],\n    index=dates\n)\nprint(\"Original Series:\")\nprint(sales)\nperiod_series = sales.to_period('M')\nprint(\"\\nSeries converted to Monthly Periods:\")\nprint(period_series)\ndf = pd.DataFrame(\n    {\n        'Sales': [1200, 1600, 1900, 2300],\n        'Profit': [250, 350, 450, 550]\n    },\n    index=dates\n)\nprint(\"\\nOriginal DataFrame:\")\nprint(df)\nperiod_df = df.to_period('M')\nprint(\"\\nDataFrame converted to Monthly Periods:\")\nprint(period_df)"
+      },
+      {
+        "letter": "G",
+        "title": "Resampling Time Series",
+        "video": "assets/videos/exp6-G.mp4",
+        "code": "import pandas as pd\ndates = pd.date_range(\n    start='2026-10-01 00:00',\n    periods=6,\n    freq='h'\n)\nvalues = [10, 12, 15, 14, 18, 20]\ntime_series = pd.Series(\n    values,\n    index=dates\n)\nprint(\"Original Hourly Time Series:\")\nprint(time_series)\nresampled = time_series.resample('3h').mean()\nprint(\"\\nResampled Time Series - 3 Hour Mean:\")\nprint(resampled)\ndownsampled = time_series.resample('4h').sum()\nprint(\"\\nDownsampled Time Series - 4 Hour Sum:\")\nprint(downsampled)\nupsampled = time_series.resample('30min').asfreq()\nprint(\"\\nUpsampled Time Series - 30minute:\")\nprint(upsampled)"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "number": 7,
+    "name": "GroupBy and Data Aggregation in Pandas",
+    "previewVideo": "assets/videos/exp7-preview.mp4",
+    "youtubeVideo": "https://www.youtube.com/embed/vmEHCJofslg",
+    "youtubeLink": "https://www.youtube.com/watch?v=vmEHCJofslg",
+    "githubLink": "https://github.com/your-username/ds-lab-experiment-7",
+    "summary": "This experiment groups and aggregates tabular data in Pandas: grouping by single or multiple keys, calculating per-group means and totals, applying multiple aggregate functions across columns at once, and producing rich summary statistics (count, sum, mean, std, min, max) on the classic iris dataset.",
+    "sections": [
+      {
+        "letter": "A",
+        "title": "GroupBy: Single & Multiple Keys",
+        "video": "assets/videos/exp7-A.mp4",
+        "code": "import pandas as pd\ndata = {\n    'Name': ['gani','bala','vishnu','kani'],\n    'Department': ['DS','DS','ECE','ECE'],\n    'Year': [2,3,3,2],\n    'Marks': [99,100,95,98]\n}\ndf = pd.DataFrame(data)\nprint(\"Original DataFrame:\")\nprint(df)\nprint(\"\\n1. Group by Department:\")\ngroup1 = df.groupby('Department')\nfor name, group in group1:\n    print(\"\\nDepartment:\", name)\n    print(group)\nprint(\"\\nAverage Marks by Department:\")\nprint(df.groupby('Department')['Marks'].mean())\nprint(\"\\n2. Group by Department and Year:\")\ngroup2 = df.groupby(['Department', 'Year'])\nfor name, group in group2:\n    print(\"\\nGroup:\", name)\n    print(group)\nprint(\"\\nAverage Marks by Department and Year:\")\nprint(df.groupby(['Department', 'Year'])['Marks'].mean())"
+      },
+      {
+        "letter": "B",
+        "title": "Aggregate: sum, mean, std across columns",
+        "video": "assets/videos/exp7-B.mp4",
+        "code": "import pandas as pd\ndata = {\n    'Department':['DS','DS','AIML','AIML'],\n    'Marks':[90,95,96,100],\n    'Attendance': [90,85,95,87]\n}\ndf = pd.DataFrame(data)\n\nprint(\"Original DataFrame:\")\nprint(df)\nresult = df.groupby('Department').aggregate({\n    'Marks': ['sum', 'mean', 'std'],\n    'Attendance': ['sum', 'mean', 'std']\n})\nprint(\"\\nSummary Statistics:\")\nprint(result)"
+      },
+      {
+        "letter": "C",
+        "title": "GroupBy with Aggregations on the Iris Dataset",
+        "video": "assets/videos/exp7-C.mp4",
+        "code": "import pandas as pd\nurl = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv\"\ndf = pd.read_csv(url)\nprint(\"First 5 Records:\")\nprint(df.head())\nprint(\"\\nDataset Information:\")\nprint(df.info())\nprint(\"\\nStatistical Summary:\")\nprint(df.describe())\nprint(\"\\n1. GroupBy using a Single Column:\")\ngroup_single = df.groupby('species')['sepal_length'].agg(\n    ['count', 'sum', 'mean', 'std', 'min', 'max']\n)\nprint(group_single)\nprint(\"\\n2. GroupBy using Multiple Columns:\")\ngroup_multiple = df.groupby(\n    ['species', 'sepal_width']\n)['sepal_length'].mean()\nprint(group_multiple.head(15))\nprint(\"\\n3. Summary Statistics:\")\nsummary = df.groupby('species').agg({\n    'sepal_length': ['mean', 'std', 'min', 'max'],\n    'sepal_width': ['mean', 'std', 'min', 'max'],\n    'petal_length': ['mean', 'std', 'min', 'max'],\n    'petal_width': ['mean', 'std', 'min', 'max']\n})\nprint(summary)"
       }
     ]
   }

@@ -31,13 +31,11 @@ const STUDENT = {
 };
 
 const MODULES = [
-  { name: "Module 1", topics: "Data Import, Export & Cleaning with Pandas" },
-  { name: "Module 2", topics: "Data Cleaning & Preprocessing" },
-  { name: "Module 3", topics: "Hierarchical Indexing & Reshaping" },
-  { name: "Module 4", topics: "Data Visualization with Matplotlib & Seaborn" },
-  { name: "Module 5", topics: "Introduction to Machine Learning" },
-  { name: "Module 6", topics: "Advanced Python Project (Exp 6 - add your topic)" },
-  { name: "Module 7", topics: "Advanced Python Project (Exp 7 - add your topic)" },
+  { name: "Module 1", topics: "Introduction to Data Science", pdf: "modules/Module_1.pdf" },
+  { name: "Module 2", topics: "Data Extraction", pdf: "modules/Module_2.pdf" },
+  { name: "Module 3", topics: "Plotting and Visualization", pdf: "modules/Module_3.pdf" },
+  { name: "Module 4", topics: "Statistical Thinking", pdf: "modules/Module_4.pdf" },
+  { name: "Module 5", topics: "Time Series Analysis and Predictive Modeling", pdf: "modules/Module_5.pdf" },
 ];
 
 const EXPERIMENTS = [

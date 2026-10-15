@@ -370,23 +370,32 @@ function renderHome() {
         </section>
       </div><!-- /home-top -->
 
-      <!-- ===== Modules ===== -->
+      <!-- ===== Modules (one per line, with PDF notes) ===== -->
       <section class="card exp-section">
         <div class="exp-header" id="modulesToggle" style="cursor:pointer;">
           <div>
-            <h2>Modules ▸</h2>
-            <span class="exp-count">click to view modules</span>
+            <h2>Modules ▾</h2>
+            <span class="exp-count">${MODULES.length} modules · PDF notes</span>
           </div>
         </div>
-        <div class="exp-list" id="modulesList" style="display:none;">
+        <div class="exp-list" id="modulesList">
           ${MODULES.map((m, i) => `
-            <button type="button" class="exp-item module-link" data-mod="${i}" style="cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:inherit;">
-              <span class="exp-item-num">${m.name.replace("Module ", "M")}</span>
-              <div class="exp-item-info">
-                <span class="exp-item-name">${esc(m.name)}</span>
-                <span class="exp-item-meta">${esc(m.topics)}</span>
-              </div>
-            </button>`).join("")}
+            <div class="exp-item" style="display:flex;align-items:center;gap:12px;">
+              <button type="button" class="module-link" data-mod="${i}"
+                      style="flex:1;display:flex;align-items:center;gap:14px;min-width:0;cursor:pointer;background:none;border:none;padding:0;text-align:left;font-family:inherit;color:inherit;">
+                <span class="exp-item-num">${m.name.replace("Module ", "M")}</span>
+                <span class="exp-item-info">
+                  <span class="exp-item-name">${esc(m.name)}</span>
+                  <span class="exp-item-meta">${esc(m.topics)}</span>
+                </span>
+                <svg class="exp-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                  <path d="M9 6l6 6-6 6"/>
+                </svg>
+              </button>
+              ${m.pdf ? `<a class="btn btn-primary" href="${esc(m.pdf)}" target="_blank" rel="noopener"
+                            style="flex-shrink:0;text-decoration:none;white-space:nowrap;">📄 View PDF</a>` : ""}
+            </div>`).join("")}
         </div>
       </section>
 
@@ -450,6 +459,8 @@ function renderHome() {
                   <div class="video-box">
                     <video controls preload="none" src="${exp.video || ('assets/videos/exp' + exp.id + '-preview.mp4')}?v=${Date.now()}"></video>
                   </div>
+                  ${PORTFOLIO_BASE_IDS.has(exp.id) ? "" : `
+                  <button class="btn" data-delport="${exp.id}" type="button" style="margin-top:12px;">🗑 Delete this experiment</button>`}
                 </div>
               </details>`).join("")}
             </div>
@@ -534,6 +545,8 @@ function openModule(idx) {
       </div>
       <p style="margin-top:12px;color:var(--ink)">${esc(m.topics)}</p>
       <p style="margin-top:8px;color:var(--muted);font-size:13px;">These topics are covered in the experiments listed below on the homepage.</p>
+      ${m.pdf ? `<a class="btn btn-primary" href="${esc(m.pdf)}" target="_blank" rel="noopener"
+                    style="display:inline-block;margin-top:16px;text-decoration:none;">📄 Open ${esc(m.name)} PDF</a>` : ""}
     </div>`;
   overlay.style.display = "flex";
   document.getElementById("subClose").onclick = () => (overlay.style.display = "none");
@@ -733,9 +746,17 @@ function openSubItem(expId, tag) {
 function labPdfs() {
   try { return JSON.parse(localStorage.getItem("labManualPdfs") || "[]"); } catch { return []; }
 }
+const PORTFOLIO_BASE_COUNT = PORTFOLIO.length;      // built-in experiments (1..7)
+const PORTFOLIO_BASE_IDS = new Set(PORTFOLIO.map((e) => e.id));
 try {
   const savedCustom = JSON.parse(localStorage.getItem("customExp") || "[]");
-  if (Array.isArray(savedCustom)) PORTFOLIO.push(...savedCustom);
+  // Drop old placeholders (e.g. a hand-made "Experiment 6 – New experiment." card)
+  // that collide with the built-in experiments — keep only real user-made ones.
+  const validCustom = Array.isArray(savedCustom)
+    ? savedCustom.filter((c) => c && c.title && !PORTFOLIO_BASE_IDS.has(Number(c.id)))
+    : [];
+  PORTFOLIO.push(...validCustom);
+  localStorage.setItem("customExp", JSON.stringify(PORTFOLIO.slice(PORTFOLIO_BASE_COUNT)));
 } catch (e) { /* ignore */ }
 
 function bindNewExperimentForm() {
@@ -763,7 +784,7 @@ function bindNewExperimentForm() {
       : [];
     const nextId = Math.max(0, ...PORTFOLIO.map((e) => e.id)) + 1;
     PORTFOLIO.push({ id: nextId, title, desc: desc || "New experiment.", items, video: "" });
-    const customs = PORTFOLIO.slice(5);
+    const customs = PORTFOLIO.slice(PORTFOLIO_BASE_COUNT);
     localStorage.setItem("customExp", JSON.stringify(customs));
     toast("Experiment added!");
     renderHome();
@@ -984,6 +1005,18 @@ function bindHomeInteractions() {
     b.addEventListener("click", () => {
       const arr = labPdfs().filter((_, i) => i !== Number(b.dataset.pdfrem));
       localStorage.setItem("labManualPdfs", JSON.stringify(arr));
+      renderHome();
+    });
+  });
+
+  // ---- Delete a custom (user-made) experiment card ----
+  document.querySelectorAll("[data-delport]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const id = Number(b.dataset.delport);
+      const i = PORTFOLIO.findIndex((e) => e.id === id);
+      if (i > -1) PORTFOLIO.splice(i, 1);
+      localStorage.setItem("customExp", JSON.stringify(PORTFOLIO.slice(PORTFOLIO_BASE_COUNT)));
+      toast("Experiment deleted.");
       renderHome();
     });
   });

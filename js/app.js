@@ -40,7 +40,7 @@ async function getPyodide(statusCb) {
       const mod = await import(/* @vite-ignore */ PYODIDE_URL);
       const py = await mod.loadPyodide();
       statusCb("Installing scientific packages: numpy, pandas, matplotlib, scipy, scikit-learn…");
-      const _bundlePkgs = ["numpy", "pandas", "matplotlib", "sqlite3", "seaborn", "scipy", "scikit-learn", "openpyxl", "requests", "regex", "beautifulsoup4", "lxml"];
+      const _bundlePkgs = ["numpy", "pandas", "matplotlib", "sqlite3", "seaborn", "scipy", "scikit-learn", "openpyxl", "requests", "regex", "beautifulsoup4", "lxml", "nltk", "wordcloud", "vaderSentiment"];
       for (const _p of _bundlePkgs) {
         try { await py.loadPackage([_p]); }
         catch (_) {
@@ -295,6 +295,13 @@ const PORTFOLIO = [
     items: [{ tag: "7a", name: "Section A", path: "GroupBy/exp7A.ipynb" },
             { tag: "7b", name: "Section B", path: "GroupBy/exp7B.ipynb" },
             { tag: "7c", name: "Section C", path: "GroupBy/exp7C.ipynb" }]},
+  { id: 8, title: "Sentiment Analysis of Product Reviews",
+    desc: "Scrape reviews from HTML with BeautifulSoup, build word clouds, score sentiment with VADER and visualize sentiment intensity.",
+    items: [{ tag: "8a", name: "Extract reviews from HTML", path: "Local/Csv/experiment8a.ipynb" },
+            { tag: "8b", name: "Word clouds & VADER sentiment", path: "Local/Csv/experiment8b.ipynb" },
+            { tag: "8c", name: "Text statistics with NLTK stopwords", path: "Local/Csv/experiment8c.ipynb" },
+            { tag: "8d", name: "NLTK VADER vs vaderSentiment", path: "Local/Csv/experiment8d.ipynb" },
+            { tag: "8e", name: "Sentiment intensity visualization", path: "Local/Csv/experiment8e.ipynb" }]},
 ];
 
 function renderHome() {
@@ -341,6 +348,10 @@ function renderHome() {
           <span class="chip">NumPy</span>
           <span class="chip">Matplotlib</span>
           <span class="chip">Seaborn</span>
+          <span class="chip">BeautifulSoup</span>
+          <span class="chip">NLTK</span>
+          <span class="chip">VADER Sentiment</span>
+          <span class="chip">WordCloud</span>
         </div>
       </section>
 
@@ -425,7 +436,7 @@ function renderHome() {
           <div class="exp-header">
             <div>
               <h2>Experiments:</h2>
-              <span class="exp-count">5 modules · Python</span>
+              <span class="exp-count">8 experiments · Python</span>
             </div>
             <button id="addExpBtn" class="btn btn-primary" type="button">+ Create New Experiment</button>
           </div>

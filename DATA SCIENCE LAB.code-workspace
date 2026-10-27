@@ -8,6 +8,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "mbu-ds-lab"
+		"liveServer.settings.multiRootWorkspaceName": "mbu-ds-lab",
+		"liveServer.settings.port": 5501
 	}
 }
